@@ -35,20 +35,19 @@ Write one clear paragraph. If you're unsure about the intent, ask the user befor
 
 ## Step 3, Spawn Reviewers
 
-Launch all reviewers in a single message through the `pstack-host` subagent mapping. Use the `interrogate reviewers` list from `~/.copilot/pstack-models.md` when present, one reviewer per entry, extending or shrinking the Reviewer A/B/C labels below to the configured entry count. Otherwise use `inherit-parent` and omit the model argument.
+Launch all reviewers in a single message through the `pstack-host` subagent mapping. Use the `interrogate reviewers` list from `~/.copilot/pstack-models.md` when present, one reviewer per entry, extending or shrinking the Reviewer A/B labels below to the configured entry count. Otherwise use `inherit-parent` and omit the model argument.
 
 | Subagent | Default model |
 |----------|---------------|
-| Reviewer A | `claude-opus-5-5-max` |
-| Reviewer B | `gpt-5.6-sol-max` |
-| Reviewer C | `grok-4.7-xhigh-fast` |
+| Reviewer A | `claude-opus-5-5-xhigh` |
+| Reviewer B | `grok-4.7-xhigh-fast` |
 
 For each reviewer:
 - `subagent_type`: `generalPurpose`
 - `model`: the configured `interrogate reviewers` entry, or the table default with no configured line. For an `auto` or `inherit-parent` entry, omit `model` so that reviewer runs on the parent model.
 - `readonly`: `true`
 
-If the Task tool rejects a configured entry, run that reviewer on the table default of its family and say so. Families go by prefix: `claude-*`, `gpt-*`, and `grok-*`. With no family match, use Reviewer A's default. If it rejects a table default, check the valid slugs in the Task tool's error message, pick the closest equivalent (prefer the highest-reasoning tier of the same family), spawn with it, and open a separate PR to update the default table. Do not block the review on the slug issue. Never treat an alias entry as a rejected slug or apply either fallback to it.
+If the Task tool rejects a configured entry, run that reviewer on the table default of its family and say so. Families go by prefix: `claude-*` and `grok-*`. With no family match, use Reviewer A's default. If it rejects a table default, check the valid slugs in the Task tool's error message, pick the closest equivalent (prefer the same family and reasoning tier), spawn with it, and open a separate PR to update the default table. Do not block the review on the slug issue. Never treat an alias entry as a rejected slug or apply either fallback to it.
 
 Read `references/reviewer-prompt.md` and fill in the template with:
 1. The stated intent

@@ -25,14 +25,14 @@ If `~/.copilot/pstack-models.md` exists, read it and treat its `# budget` line a
 
 Ask in one numbered list. Do not call `AskQuestion`.
 
-**(a) Budget.** Offer these labels:
+**(a) Budget.** Offer these labels. With no sheet, say that `large` is the default:
 
 - `unlimited`
 - `large`
 - `medium`
 - `small`
 
-Record the label. It does not invent ids. When the user later names a family, `unlimited` and `large` prefer the highest reasoning variant they confirmed, `medium` the middle, `small` the fastest.
+Record the label. It does not invent ids. When the user later names a family, prefer the confirmed variant with the highest reasoning at or below the label's tier: `unlimited` up to `max`, `large` up to `xhigh`, `medium` up to `high`, `small` up to `medium`. A model that tops out at `xhigh` stays there under `unlimited`.
 
 **(b) Roles.** Show every role with its current value. Mark any real id that is not in the detected set as needing a choice. Ask whether to accept the sheet or change specific roles. Offer the detected ids plus `inherit-parent` and `auto`.
 
@@ -49,7 +49,7 @@ Overwrite `~/.copilot/pstack-models.md` so re-runs stay idempotent. Shape:
 ```
 # pstack model configuration. One line per role. Delete a line to fall back to inherit-parent.
 # inherit-parent or auto: omit the subagent model. Alias entries in a panel list still count toward its fan-out.
-# budget: unlimited
+# budget: large
 feature, refactoring: inherit-parent
 bug-fix: inherit-parent
 perf-issue: inherit-parent
