@@ -1,0 +1,20 @@
+{
+  "name": "pstack-vscode",
+  "owner": {
+    "name": "Lauren Tan"
+  },
+  "metadata": {
+    "description": "VS Code and GitHub Copilot port of cursor/plugins pstack",
+    "version": "0.15.13"
+  },
+  "plugins": [
+    {
+      "name": "pstack",
+      "description": "Rigorous agent workflows for VS Code and GitHub Copilot. Port of cursor/plugins pstack.",
+      "version": "0.15.13",
+      "source": "./",
+      "license": "MIT",
+      "keywords": ["pstack", "poteto-mode", "vscode", "copilot"]
+    }
+  ]
+}
